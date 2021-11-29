@@ -1,23 +1,19 @@
-//DELETED REACT APP 
-// 6a BONUS
-import { useState } from 'react'
-
-//7a BONUS RETURN TO THIS...const [num, setNUM]
-// import { useState } from 'react'
-
 // 2a
-import MCUShows from './mcu-shows/MCUShows'
+import MCUShows from "./mcu-shows/MCUShows";
 
-// 5a Creative license...the months bugged me
+// BONUS 6a & 8a
+import { useState, useEffect } from 'react';
+
+// 5a
 const releaseDates = {
-  wandaVision: 'Jan 2021',
-  falconWinter: 'Mar 2021',
-  loki: 'Jun 2021',
-  whatIf: 'Aug 2021',
-  hawkeye: 'Nov 2021'
+  wandaVision: 'January 2021',
+  falconWinter: 'March 2021',
+  loki: 'June 2021',
+  whatIf: 'August 2021',
+  hawkeye: 'November 2021'
 };
 
-// 6b BONUS
+// BONUS 6b
 const mcuCharacters = [
   'Scarlet Witch',
   'Vision',
@@ -29,29 +25,48 @@ const mcuCharacters = [
 ];
 
 function App() {
-  // 6c BONUS set to Zero/destructure
+  // BONUS 6c
   const [index, setIndex] = useState(0);
 
-  // 6f BONUS RANDOM MCU CHARACTER BUTTON
-  const randomIndex = () => {
-    const newIndex = Math.floor(Math.random() * 5);
-    setIndex(newIndex);
+  // BONUS 7a
+  const [num, setNum] = useState(0);
+
+  // BONUS 8a
+  // The function (1st argument) passed into the useEffect function/hook will run every time the state value ("num" in this example) that is passed into the array (2nd argument) is updated.
+  // NOTE: If nothing is passed in for a 2nd argument, then the function will run whenever any state values are updated.)
+  useEffect(() => {
+    alert("The Next MCU Character has been displayed");
+  }, [num]);
+
+  // BONUS 6f
+  function newIndex() {
+    const randomIndex = Math.floor(Math.random() * mcuCharacters.length);
+    setIndex(randomIndex);
+  }
+
+  // BONUS 7d
+  function newNum() {
+    if (num < mcuCharacters.length - 1) {
+      setNum(num + 1);
+    } else {
+      setNum(0);
+    }
   }
 
   return (
     <div>
       {/* 2b */}
       <h1>FINAL REACT EXERCISE</h1>
-      {/* 2c MCUShows component & 5b dates prop added with release dates passing through "dates" */}
-      <MCUShows dates={releaseDates} randomIndex={randomIndex} />
-      {/* 6d BONUS */}
-      <h1>Random MCU Character:</h1>
-      {/* 6f BONUS */}
-      <h1>{mcuCharacters[index]}</h1>
-      {/* 7c BONUS RETURN TO THIS... */}
-      <h1>NEXT MCU CHARACTER</h1>
-      {/* 7d BONUS  RETURN TO THIS... NEEDS TO BEGIN WITH SCARLET WITCH */}
-      <h1>{mcuCharacters[0]}</h1>
+      {/* 2c & 5b & BONUS 6f & 7d */}
+      <MCUShows
+        dates={releaseDates}
+        indexTwo={newIndex}
+        numTwo={newNum}
+      />
+      {/* BONUS 6d & 6f */}
+      <h1>Random MCU Character: {mcuCharacters[index]}</h1>
+      {/* BONUS 7b & 7d */}
+      <h1>Next MCU Character: {mcuCharacters[num]}</h1>
     </div>
   );
 }
